@@ -1,13 +1,54 @@
 # React Fluidity
 
-A simple react objects wrappers/factories.
+A react's objects factories collection that implements Flux Architecture in a simpler way.
 
-# Install
+All repetetive task you should do in order to make your omponents interact with your Dispatcher and your stores are already done.
 
+## Install
 ```
 $  npm install --save react-fluidity
 ```
 
-#Usage
+## Usage
 
+### Component Factory
 
+```javascript
+/** @jsx React.DOM */
+
+var React = require('react');
+
+var MyStore = require('path/to/my-store');
+
+var Fluid = require('react-fluidity');
+
+var AlbumSlider = Fluid.createComponent({
+  getInitialState: function() {
+    return {myData : MyStore.getData()};
+  },
+  componentWillMount: function(){
+    //You do not have to include anything in order to observe stores
+  },
+  render: function () {
+    var dataList = this.state.myData.map(function (data) {
+      return (<li>{ data }</li>);
+    });
+    return (
+      <div>
+        <ul className="listClass">
+          { dataList }
+        </ul>
+      </div>
+    );
+  }
+});
+
+AlbumSlider.subscribeStore(DiscographyStore).onChange(function(){
+debugger;
+this.setState({albumdata : DiscographyStore.getAllAlbums()});
+});
+
+module.exports = AlbumSlider;
+```
+
+### Store Factory
