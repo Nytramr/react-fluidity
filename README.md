@@ -22,7 +22,7 @@ var MyStore = require('path/to/my-store');
 
 var Fluid = require('react-fluidity');
 
-var AlbumSlider = Fluid.createComponent({
+var MyComponent = Fluid.createComponent({
   getInitialState: function() {
     return {myData : MyStore.getData()};
   },
@@ -43,12 +43,11 @@ var AlbumSlider = Fluid.createComponent({
   }
 });
 
-AlbumSlider.subscribeStore(DiscographyStore).onChange(function(){
-debugger;
-this.setState({albumdata : DiscographyStore.getAllAlbums()});
+MyComponent.subscribeStore(DiscographyStore).onChange(function(){
+  this.setState({myData : MyStore.getData()});
 });
 
-module.exports = AlbumSlider;
+module.exports = MyComponent;
 ```
 
 ### Store Factory
